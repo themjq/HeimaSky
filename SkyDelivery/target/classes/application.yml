@@ -1,0 +1,94 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+  #  druid:#把这个删了
+      driver-class-name: ${sky.datasource.driver-class-name}
+      url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${sky.datasource.username}
+      password: ${sky.datasource.password}
+  redis:
+    host:${sky.redis.host}
+    port:${sky.redis.port}
+    password:${sky.redis.password}
+    database:${sky.redis.database}
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.skydelivery.mapper.entity
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com:
+      sky:
+        mapper: debug
+        service: info
+        controller: info
+
+sky:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    admin-secret-key: itcast
+    # 设置jwt过期时间
+    admin-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    admin-token-name: token
+    # 设置jwt签名加密时使用的秘钥
+    user-secret-key: itheima
+    # 设置jwt过期时间
+    user-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    user-token-name: authentication
+  wechat:
+    appid: ${sky.wechat.appid}
+    secret: ${sky.wechat.secret}
+    mchid : ${sky.wechat.mchid}
+    mchSerialNo: ${sky.wechat.mchSerialNo}
+    privateKeyFilePath: ${sky.wechat.privateKeyFilePath}
+    apiV3Key: ${sky.wechat.apiV3Key}
+    weChatPayCertFilePath: ${sky.wechat.weChatPayCertFilePath}
+    notifyUrl: ${sky.wechat.notifyUrl}
+    refundNotifyUrl: ${sky.wechat.refundNotifyUrl}
+
+##swagger-ui: 用于配置Swagger UI的相关属性。
+#springdoc:
+#  swagger-ui:
+#    path: /swagger-ui.html      #path: 指定Swagger UI的访问路径为/swagger-ui.html，即通过该路径可以访问Swagger UI界面。
+#    tags-sorter: alpha          #tags-sorter: 指定标签的排序方式为按字母顺序排序。
+#    #operations-sorter: order   #operations-sorter: 指定操作的排序方式，这里是注释掉的，表示使用默认的排序方式。
+#  api-docs:                     #api-docs: 用于配置API文档的相关属性。
+#    path: /v3/api-docs          #path: 指定API文档的访问路径为/v3/api-docs，即通过该路径可以获取API文档的JSON格式数据。
+#  group-configs:                #group-configs: 用于配置API分组的相关属性。
+#    - group: 'default'          #group: 指定API分组的名称，这里是default。
+#      paths-to-match: '/**'     #paths-to-match: 指定需要匹配的路径，这里是/**，表示匹配所有路径。
+#      packages-to-scan: com.example.skydelivery
+#                                #packages-to-scan: 指定需要扫描的包路径，这里是com.example.skydelivery，表示扫描该包下的类来生成API文档。
+#  default-flat-param-object: true
+#                                #default-flat-param-object: 指定是否将请求参数展开为扁平的对象。当设置为true时，请求参数将展开为扁平的对象；当设置为false时，请求参数将按照原始的嵌套结构展示。
+
+#设置左侧的样式
+#knife4j:
+#  enable: true
+#  setting:
+#    language: zh_cn
+#    swagger-model-name: 实体类列表
+#  documents:
+##    - name: 标题1
+##      locations: classpath:markdown/*
+##      group: default
+##    - name: 标题2
+##      locations: classpath:markdown1/*
+##      group: 用户模块
+#  basic:
+#    enable: false
+#    username: abc
+#    password: 123
